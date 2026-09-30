@@ -38,4 +38,7 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   Claude Code agent can use an Ollama model (`ollama launch claude`, or set
   `ANTHROPIC_BASE_URL=http://localhost:11434`). Needs ~64k context, which is tight on 12 GB.
   See [docs/claude-code-ollama.md](docs/claude-code-ollama.md).
+- Turned on **Expose Ollama to the network** in Settings, to use the PC's GPU from other
+  machines. Steps (IP, firewall, client config, security) in
+  [docs/network-access.md](docs/network-access.md).
 - Next: run the test on `qwen3:8b`, record results, then try `qwen3:14b` and Paperclip.
