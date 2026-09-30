@@ -6,13 +6,14 @@ different tool), I can follow these docs instead of re-discovering everything.
 
 ## Current setup
 
-| Machine    | OS         | Runtime | Status      |
+| Machine    | OS / GPU   | Runtime | Status      |
 |------------|------------|---------|-------------|
-| Desktop PC | Windows 11 | Ollama  | In progress |
+| Desktop PC | Windows 11, RTX 5070 (12 GB VRAM) | Ollama  | In progress |
 
 ## Guides
 
 - [Ollama on Windows 11](docs/ollama-windows.md) — install, verify, pull and run a first model
+- [Hardware](docs/hardware.md) — GPU specs and which model sizes fit
 
 ## Journal
 
@@ -21,7 +22,6 @@ learned. The guides are the clean "how to"; the journal is the messy "what happe
 
 ## Possible future topics
 
-- Hardware notes (GPU, VRAM, which model sizes fit)
 - Model comparisons for different tasks
 - Front ends (e.g. Open WebUI) on top of Ollama
 - Using the local API from scripts and editors
