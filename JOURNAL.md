@@ -31,4 +31,7 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   See [docs/models.md](docs/models.md).
 - `ollama run qwen3:8b` failed at 9% with `Error: unexpected EOF` (download dropped).
   Fix: re-run the command; it resumes. Added to troubleshooting.
-- Next: pull `qwen3:8b` and `qwen3:14b`, test on real tasks, then try Paperclip.
+- Re-ran the pull; `qwen3:8b` downloaded successfully.
+- Added `scripts/test-model.ps1` and [docs/testing-models.md](docs/testing-models.md) for a
+  repeatable test: speed (tokens/s), GPU fit, and tool calling (needed for Paperclip).
+- Next: run the test on `qwen3:8b`, record results, then try `qwen3:14b` and Paperclip.
