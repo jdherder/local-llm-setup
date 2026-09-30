@@ -25,4 +25,8 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   costs VRAM. Starting point on 12 GB: 16k–32k for small models, 8k–16k for 7–9B,
   4k–8k for 12–14B. Check `ollama ps` still says 100% GPU. See
   [docs/ollama-windows.md](docs/ollama-windows.md#context-length).
-- Next: try a 7–9B model and a 12–14B model; compare speed and quality.
+- Researched models for coding / harder tasks and for running Paperclip (agent orchestrator)
+  against Ollama. Shortlist: `qwen2.5-coder:14b`, `qwen3:14b`, `qwen3:8b`, `gpt-oss:20b`.
+  Agents need tool calling and 16k–32k context, which is tight on 12 GB.
+  See [docs/models.md](docs/models.md).
+- Next: pull `qwen3:8b` and `qwen3:14b`, test on real tasks, then try Paperclip.

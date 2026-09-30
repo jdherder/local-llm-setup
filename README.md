@@ -14,6 +14,7 @@ different tool), I can follow these docs instead of re-discovering everything.
 
 - [Ollama on Windows 11](docs/ollama-windows.md) — install, verify, pull and run a first model
 - [Hardware](docs/hardware.md) — GPU specs and which model sizes fit
+- [Models](docs/models.md) — models tried, what to try next, and using them with agent tools like Paperclip
 
 ## Journal
 
@@ -22,7 +23,6 @@ learned. The guides are the clean "how to"; the journal is the messy "what happe
 
 ## Possible future topics
 
-- Model comparisons for different tasks
 - Front ends (e.g. Open WebUI) on top of Ollama
 - Using the local API from scripts and editors
 - Other runtimes (LM Studio, llama.cpp)
