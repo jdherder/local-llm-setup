@@ -96,6 +96,30 @@ Invoke-RestMethod http://localhost:11434/api/generate -Method Post -Body (@{
 It also offers an OpenAI-compatible endpoint at `http://localhost:11434/v1`, so many
 tools that speak the OpenAI API can point at it directly.
 
+## Context length
+
+The **context length** (Settings → Context length, or `OLLAMA_CONTEXT_LENGTH`) is how many
+tokens the model can "see" at once: your messages, its replies, and any pasted text.
+One token is roughly ¾ of a word, so 8k tokens ≈ 6,000 words.
+
+- **Too small:** in long chats or with big pasted documents, the oldest text is dropped
+  without any warning, and the model "forgets" it.
+- **Too large:** the context's working memory (KV cache) takes VRAM. If model + context
+  don't fit on the GPU, part of it runs on the CPU and everything gets much slower. It
+  also uses more VRAM even when your chats are short.
+
+Suggested starting points for 12 GB VRAM (see [hardware.md](hardware.md)):
+
+| Model size | Context to start with |
+|------------|-----------------------|
+| 1–4B       | 16k–32k               |
+| 7–9B       | 8k–16k                |
+| 12–14B     | 4k–8k                 |
+
+Raise it only when you need to (long documents, coding with large files). After changing
+it, load a model and run `ollama ps`: `PROCESSOR` should still say `100% GPU`. If it
+doesn't, lower the context length.
+
 ## Freeing the GPU (gaming, etc.)
 
 Ollama only uses VRAM while a model is **loaded**. The background server on its own uses
@@ -141,6 +165,7 @@ then quit Ollama from the tray icon and start it again.
 | `OLLAMA_MODELS` | Store models somewhere else (e.g. a bigger drive: `D:\ollama\models`) |
 | `OLLAMA_HOST`   | Listen address; `0.0.0.0` exposes it to your LAN (be careful)      |
 | `OLLAMA_KEEP_ALIVE` | How long a model stays loaded in memory after use (default `5m`) |
+| `OLLAMA_CONTEXT_LENGTH` | Default context length in tokens (same as the Settings slider) |
 
 Example from PowerShell:
 

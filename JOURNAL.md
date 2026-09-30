@@ -21,4 +21,8 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   loaded (auto-unloads after 5 min idle). `ollama stop <model>` frees it immediately; tray →
   Quit Ollama stops it completely. Added a section to
   [docs/ollama-windows.md](docs/ollama-windows.md#freeing-the-gpu-gaming-etc).
+- Question: what context length to set? Bigger = model remembers more of the chat, but
+  costs VRAM. Starting point on 12 GB: 16k–32k for small models, 8k–16k for 7–9B,
+  4k–8k for 12–14B. Check `ollama ps` still says 100% GPU. See
+  [docs/ollama-windows.md](docs/ollama-windows.md#context-length).
 - Next: try a 7–9B model and a 12–14B model; compare speed and quality.
