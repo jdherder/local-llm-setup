@@ -18,11 +18,15 @@ Open a new PowerShell window afterwards and check with `claude --version`.
 
 ## 2. Launch it against Ollama
 
-Easiest: let Ollama set everything up.
+Easiest: let Ollama set everything up. Claude Code must be installed first (step 1);
+`ollama launch` starts it and points it at Ollama but doesn't bundle it.
 
 ```powershell
-ollama launch claude
+ollama launch claude                    # pick a model from a menu
+ollama launch claude --model qwen3:8b   # or name one
 ```
+
+If you get "unknown command", update Ollama.
 
 Or do it manually. These settings only last for the current PowerShell window:
 
