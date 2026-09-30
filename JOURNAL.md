@@ -29,4 +29,6 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   against Ollama. Shortlist: `qwen2.5-coder:14b`, `qwen3:14b`, `qwen3:8b`, `gpt-oss:20b`.
   Agents need tool calling and 16k–32k context, which is tight on 12 GB.
   See [docs/models.md](docs/models.md).
+- `ollama run qwen3:8b` failed at 9% with `Error: unexpected EOF` (download dropped).
+  Fix: re-run the command; it resumes. Added to troubleshooting.
 - Next: pull `qwen3:8b` and `qwen3:14b`, test on real tasks, then try Paperclip.

@@ -179,6 +179,10 @@ Example from PowerShell:
   `%LOCALAPPDATA%\Programs\Ollama` is on your user `PATH`.
 - **Running slowly / `ollama ps` shows CPU** — model may be too big for VRAM, or GPU
   drivers are outdated. Try a smaller model and update drivers. Check `server.log`.
+- **`Error: unexpected EOF` while pulling a model** — the download connection dropped.
+  Run the same command again; Ollama keeps the parts already downloaded and continues from there.
+  If it keeps failing: use `ollama pull <model>` and retry, pause VPNs or
+  antivirus web filtering, check free disk space, and restart Ollama from the tray.
 - **Port 11434 in use** — another Ollama instance is probably running; check the tray.
 
 ## Updating / uninstalling
