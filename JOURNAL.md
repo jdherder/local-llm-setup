@@ -16,5 +16,9 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   Details in [docs/hardware.md](docs/hardware.md).
 - Note: the PowerShell prompt was `C:\WINDOWS\system32`, i.e. an **Administrator** window.
   Not needed for Ollama — a normal PowerShell window is fine.
-- Next: verify the install, check GPU detection, pull a first model.
-  See [docs/ollama-windows.md](docs/ollama-windows.md).
+- `ollama run llama3.2` works. ✅
+- Question: how to free the GPU for gaming? Answer: Ollama only holds VRAM while a model is
+  loaded (auto-unloads after 5 min idle). `ollama stop <model>` frees it immediately; tray →
+  Quit Ollama stops it completely. Added a section to
+  [docs/ollama-windows.md](docs/ollama-windows.md#freeing-the-gpu-gaming-etc).
+- Next: try a 7–9B model and a 12–14B model; compare speed and quality.

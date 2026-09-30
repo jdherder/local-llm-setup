@@ -96,6 +96,31 @@ Invoke-RestMethod http://localhost:11434/api/generate -Method Post -Body (@{
 It also offers an OpenAI-compatible endpoint at `http://localhost:11434/v1`, so many
 tools that speak the OpenAI API can point at it directly.
 
+## Freeing the GPU (gaming, etc.)
+
+Ollama only uses VRAM while a model is **loaded**. The background server on its own uses
+almost nothing, so there's no need to uninstall or disable it to use the GPU for something else.
+
+- A model is unloaded automatically after **5 minutes** without use (`OLLAMA_KEEP_ALIVE`).
+- To free the VRAM right away:
+
+  ```powershell
+  ollama ps              # see what's loaded
+  ollama stop llama3.2   # unload that model now
+  ```
+
+- To stop Ollama completely: right-click the llama tray icon → **Quit Ollama**.
+  Start it again from the Start menu (or `ollama serve`) when you need it.
+- Ollama starts automatically when you sign in. To turn that off:
+  Task Manager → **Startup apps** → Ollama → Disable.
+
+Verify with `nvidia-smi`: once the model is unloaded, the `ollama` process should no longer
+be using gigabytes of GPU memory.
+
+If you start a game while a model is still loaded, the game will probably still run, but it
+has less VRAM and may stutter or show lower-quality textures. Loading a model *during* a game
+works the other way: the model may partly fall back to CPU and run slowly.
+
 ## Where things live
 
 | What              | Location                              |
