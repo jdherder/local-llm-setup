@@ -15,6 +15,7 @@ different tool), I can follow these docs instead of re-discovering everything.
 - [Ollama on Windows 11](docs/ollama-windows.md) — install, verify, pull and run a first model
 - [Hardware](docs/hardware.md) — GPU specs and which model sizes fit
 - [Testing a model](docs/testing-models.md) — speed, GPU fit, tool calling, and quality checks
+- [Claude Code with Ollama](docs/claude-code-ollama.md) — run the Claude Code agent on a local model
 - [Models](docs/models.md) — models tried, what to try next, and using them with agent tools like Paperclip
 
 ## Journal

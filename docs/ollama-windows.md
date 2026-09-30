@@ -166,6 +166,8 @@ then quit Ollama from the tray icon and start it again.
 | `OLLAMA_HOST`   | Listen address; `0.0.0.0` exposes it to your LAN (be careful)      |
 | `OLLAMA_KEEP_ALIVE` | How long a model stays loaded in memory after use (default `5m`) |
 | `OLLAMA_CONTEXT_LENGTH` | Default context length in tokens (same as the Settings slider) |
+| `OLLAMA_FLASH_ATTENTION` | `1` enables flash attention (required for `OLLAMA_KV_CACHE_TYPE`) |
+| `OLLAMA_KV_CACHE_TYPE` | `q8_0` roughly halves the VRAM used by the context |
 
 Example from PowerShell:
 

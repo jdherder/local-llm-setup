@@ -34,4 +34,8 @@ Newest entries at the top. Record what was run, what happened, and anything surp
 - Re-ran the pull; `qwen3:8b` downloaded successfully.
 - Added `scripts/test-model.ps1` and [docs/testing-models.md](docs/testing-models.md) for a
   repeatable test: speed (tokens/s), GPU fit, and tool calling (needed for Paperclip).
+- Question: can I run Claude with Ollama? Claude models can't run locally, but the
+  Claude Code agent can use an Ollama model (`ollama launch claude`, or set
+  `ANTHROPIC_BASE_URL=http://localhost:11434`). Needs ~64k context, which is tight on 12 GB.
+  See [docs/claude-code-ollama.md](docs/claude-code-ollama.md).
 - Next: run the test on `qwen3:8b`, record results, then try `qwen3:14b` and Paperclip.
