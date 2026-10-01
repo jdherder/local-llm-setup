@@ -57,6 +57,9 @@ curl http://192.168.4.24:11434          # macOS / Linux -> "Ollama is running"
 Invoke-RestMethod http://192.168.4.24:11434   # Windows
 ```
 
+A phone browser works too: open `http://192.168.4.24:11434`. Open
+`http://192.168.4.24:11434/api/tags` to see the installed models.
+
 If it times out: check the firewall rule, the network profile, and that both machines are
 on the same network.
 

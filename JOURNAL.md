@@ -2,6 +2,12 @@
 
 Newest entries at the top. Record what was run, what happened, and anything surprising.
 
+## 2026-10-01 — Network access works
+
+- Opened `http://192.168.4.24:11434` in my phone's browser → **"Ollama is running"**. ✅
+  Exposing Ollama to the network works; the firewall is letting it through.
+- `http://192.168.4.24:11434/api/tags` lists the installed models (handy quick check).
+
 ## 2026-09-30 — Installing Ollama on Windows 11
 
 - Installed Ollama from PowerShell with the official install script:
