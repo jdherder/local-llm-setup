@@ -7,6 +7,10 @@ Newest entries at the top. Record what was run, what happened, and anything surp
 - Opened `http://192.168.4.24:11434` in my phone's browser → **"Ollama is running"**. ✅
   Exposing Ollama to the network works; the firewall is letting it through.
 - `http://192.168.4.24:11434/api/tags` lists the installed models (handy quick check).
+  It showed: `qwen3:8b` (8.2B, Q4_K_M, 5.2 GB, **max context 40k**, tools + thinking) and
+  `llama3.2` (3.2B, Q4_K_M, 2.0 GB, max context 128k, tools).
+- Learned: `qwen3:8b` can't do the 64k context recommended for Claude Code. Its max is 40k.
+  Use 32k–40k with it. Updated [docs/claude-code-ollama.md](docs/claude-code-ollama.md).
 
 ## 2026-09-30 — Installing Ollama on Windows 11
 

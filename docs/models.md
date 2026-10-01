@@ -6,9 +6,14 @@ Sizes are approximate for Ollama's default 4-bit quantization. Check
 
 ## Tried
 
-| Model      | Size   | Notes                         |
-|------------|--------|-------------------------------|
-| `llama3.2` | ~2 GB  | 3B. Works, fast. Good smoke test. |
+| Model      | Params | Quant  | Size    | Max context | Capabilities              | Notes |
+|------------|--------|--------|---------|-------------|---------------------------|-------|
+| `llama3.2` | 3.2B   | Q4_K_M | 2.0 GB  | 128k        | completion, tools         | Works, fast. Good smoke test. |
+| `qwen3:8b` | 8.2B   | Q4_K_M | 5.2 GB  | **40k**     | completion, tools, thinking | Downloaded; test pending. |
+
+Capabilities and max context come from `http://192.168.4.24:11434/api/tags` (or
+`ollama show <model>`). **Max context** is the most the model supports. Setting Ollama's
+context length higher than that doesn't help.
 
 ## To try next: coding and harder tasks
 

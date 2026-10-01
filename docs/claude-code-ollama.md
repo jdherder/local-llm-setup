@@ -47,14 +47,17 @@ Claude Code sends a large system prompt plus tool definitions and file contents.
 It's recommended to use **64k context or more**. With less, tool results and earlier
 conversation get cut off and the agent gets confused.
 
+Also check the model's **maximum** context (`ollama show <model>`). `qwen3:8b` tops out at
+**40k** (40960), so 64k isn't possible with it. Use 32k–40k.
+
 On 12 GB of VRAM (see [hardware.md](hardware.md)), rough estimates for `qwen3:8b`:
 
-| Context | Fits on GPU?                                                     |
-|---------|------------------------------------------------------------------|
-| 32k     | Yes, about 10 GB total                                           |
-| 64k     | Not by default (~15 GB). Possible with a compressed KV cache, below |
+| Context | Fits on GPU?                                                       |
+|---------|--------------------------------------------------------------------|
+| 32k     | Yes, about 10 GB total                                             |
+| 40k     | Borderline (~11 GB). Should fit with a compressed KV cache, below |
 
-To fit 64k, set these **user** environment variables, then quit Ollama from the tray and restart it:
+For a model that supports 64k+, to fit 64k set these **user** environment variables, then quit Ollama from the tray and restart it:
 
 | Variable                 | Value   | Effect                                          |
 |--------------------------|---------|-------------------------------------------------|
