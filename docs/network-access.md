@@ -16,7 +16,9 @@ network interfaces, not just `localhost`. (Same as setting `OLLAMA_HOST=0.0.0.0`
 ipconfig
 ```
 
-Look for **IPv4 Address** under your active adapter (Ethernet or Wi-Fi), e.g. `192.168.1.50`.
+Look for **IPv4 Address** under your active adapter (Ethernet or Wi-Fi).
+
+**This PC: `192.168.4.24`**, reserved in the router, so it won't change. The examples below use it.
 
 Tip: give the PC a fixed address with a **DHCP reservation** in your router's settings,
 so the address doesn't change and break your other machines' config.
@@ -44,15 +46,15 @@ If the PC sleeps, the other machines lose Ollama. Settings → System → Power 
 
 ## On the other computer (the client)
 
-Replace `192.168.1.50` with your PC's IP.
+All examples use the desktop's reserved IP, `192.168.4.24`.
 
 ### Test the connection
 
 ```bash
-curl http://192.168.1.50:11434          # macOS / Linux -> "Ollama is running"
+curl http://192.168.4.24:11434          # macOS / Linux -> "Ollama is running"
 ```
 ```powershell
-Invoke-RestMethod http://192.168.1.50:11434   # Windows
+Invoke-RestMethod http://192.168.4.24:11434   # Windows
 ```
 
 If it times out: check the firewall rule, the network profile, and that both machines are
@@ -63,7 +65,7 @@ on the same network.
 macOS / Linux:
 
 ```bash
-export ANTHROPIC_BASE_URL="http://192.168.1.50:11434"
+export ANTHROPIC_BASE_URL="http://192.168.4.24:11434"
 export ANTHROPIC_AUTH_TOKEN="ollama"
 export ANTHROPIC_API_KEY=""
 claude --model qwen3:8b
@@ -72,7 +74,7 @@ claude --model qwen3:8b
 Windows PowerShell:
 
 ```powershell
-$env:ANTHROPIC_BASE_URL   = "http://192.168.1.50:11434"
+$env:ANTHROPIC_BASE_URL   = "http://192.168.4.24:11434"
 $env:ANTHROPIC_AUTH_TOKEN = "ollama"
 $env:ANTHROPIC_API_KEY    = ""
 claude --model qwen3:8b
@@ -84,8 +86,8 @@ there. See [claude-code-ollama.md](claude-code-ollama.md).
 ### `ollama` CLI (if Ollama is installed on the client too)
 
 ```bash
-OLLAMA_HOST=http://192.168.1.50:11434 ollama list
-OLLAMA_HOST=http://192.168.1.50:11434 ollama run qwen3:8b
+OLLAMA_HOST=http://192.168.4.24:11434 ollama list
+OLLAMA_HOST=http://192.168.4.24:11434 ollama run qwen3:8b
 ```
 
 ### Other tools (OpenAI-compatible)
@@ -94,11 +96,11 @@ Most tools (Open WebUI, Continue, Cline, Paperclip adapters, Python `openai` lib
 
 | Setting  | Value                              |
 |----------|------------------------------------|
-| Base URL | `http://192.168.1.50:11434/v1`     |
+| Base URL | `http://192.168.4.24:11434/v1`     |
 | API key  | anything, e.g. `ollama` (it's ignored) |
 | Model    | `qwen3:8b` (as shown by `ollama list`) |
 
-Tools with a native Ollama option just need `http://192.168.1.50:11434`.
+Tools with a native Ollama option just need `http://192.168.4.24:11434`.
 
 ## Security
 

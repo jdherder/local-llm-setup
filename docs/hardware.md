@@ -7,6 +7,7 @@
 | GPU       | NVIDIA GeForce RTX 5070                   |
 | VRAM      | 12 GB (12227 MiB reported)                |
 | Driver    | 610.88 (CUDA 13.3), WDDM mode             |
+| Network   | Wi-Fi 5 GHz, reserved IP `192.168.4.24`   |
 
 Captured with `nvidia-smi` on 2026-09-30.
 

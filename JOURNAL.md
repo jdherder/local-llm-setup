@@ -41,4 +41,6 @@ Newest entries at the top. Record what was run, what happened, and anything surp
 - Turned on **Expose Ollama to the network** in Settings, to use the PC's GPU from other
   machines. Steps (IP, firewall, client config, security) in
   [docs/network-access.md](docs/network-access.md).
+- Desktop has a DHCP reservation in the router: **`192.168.4.24`** (on Wi-Fi, 5 GHz).
+  Other machines use `http://192.168.4.24:11434`.
 - Next: run the test on `qwen3:8b`, record results, then try `qwen3:14b` and Paperclip.
