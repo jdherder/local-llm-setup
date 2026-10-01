@@ -11,6 +11,8 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   `llama3.2` (3.2B, Q4_K_M, 2.0 GB, max context 128k, tools).
 - Learned: `qwen3:8b` can't do the 64k context recommended for Claude Code. Its max is 40k.
   Use 32k–40k with it. Updated [docs/claude-code-ollama.md](docs/claude-code-ollama.md).
+- Looked up newer models: Qwen 3.5 and Gemma 4 are out, both with tools and 256k context.
+  Next to try: `qwen3.5:9b` (~6.6 GB), then `gemma4:12b`. Updated [docs/models.md](docs/models.md).
 
 ## 2026-09-30 — Installing Ollama on Windows 11
 

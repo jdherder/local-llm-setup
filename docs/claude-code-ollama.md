@@ -70,8 +70,8 @@ Then load the model and check `ollama ps` shows `100% GPU`. If it doesn't, drop 
 ## 4. Model choice
 
 The model **must support tool calling** (run `scripts/test-model.ps1` — see
-[testing-models.md](testing-models.md)). Candidates on 12 GB: `qwen3:8b` (best fit with a big
-context) and `qwen3:14b` (smarter, but only with a small context). See [models.md](models.md).
+[testing-models.md](testing-models.md)). Candidates on 12 GB: `qwen3.5:9b` (supports 64k+ context, and
+leaves VRAM for it with a compressed KV cache) and `qwen3:8b` (max 40k). See [models.md](models.md).
 
 ## Sources
 

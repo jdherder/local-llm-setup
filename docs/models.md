@@ -17,14 +17,23 @@ context length higher than that doesn't help.
 
 ## To try next: coding and harder tasks
 
-| Model               | Size    | Why                                                                 |
-|---------------------|---------|---------------------------------------------------------------------|
-| `qwen2.5-coder:14b` | ~9 GB   | Widely recommended coder at the 12 GB limit. Good at writing and editing code. |
-| `qwen3:14b`         | ~9.3 GB | Stronger general reasoning (has a "thinking" mode) and solid tool calling. Better pick for agents. |
-| `qwen3:8b`          | ~5.2 GB | Same family, smaller: leaves VRAM for a much bigger context.        |
-| `gpt-oss:20b`       | ~14 GB  | OpenAI's open-weight model, good at reasoning and tool use. Slightly over 12 GB, so part runs on CPU; it's a mixture-of-experts model so this hurts less than usual. |
+Newer generations (Qwen 3.5, Gemma 4) replace most of the older picks. Both support tool calling
+and long context (up to 256k), which fixes `qwen3:8b`'s 40k limit.
 
-Test each one on the same few real tasks and write the results in the journal.
+| Model          | Size    | Why                                                                     |
+|----------------|---------|-------------------------------------------------------------------------|
+| `qwen3.5:9b`   | ~6.6 GB | **Next to try.** Direct upgrade to `qwen3:8b`: smarter, tools + thinking, 256k max context. Leaves ~4 GB for context on 12 GB. |
+| `gemma4:12b`   | ~8–9 GB? | Google's dense 12B, said to fit 12 GB. Tools + thinking, 256k max context. Less room for context. |
+| `gemma4:26b`   | ~17 GB  | Mixture-of-experts (only ~4B active per token). Doesn't fit 12 GB, but MoE models run tolerably when partly on CPU. Experiment. |
+| `gpt-oss:20b`  | ~14 GB  | OpenAI's open-weight model. Same idea: slightly too big, MoE, worth an experiment. |
+
+Older picks, superseded but still fine: `qwen2.5-coder:14b` (~9 GB, coding), `qwen3:14b` (~9.3 GB).
+
+Ollama defaults some models (e.g. Gemma 4) to a small context. Set the context length
+yourself (see [ollama-windows.md](ollama-windows.md#context-length)).
+
+Test each one on the same few real tasks ([testing-models.md](testing-models.md)) and record
+the results in the table above.
 
 ## For agent tools (Paperclip, OpenCode, etc.)
 
