@@ -14,7 +14,10 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   ✅ Works: OpenCode on Linux → Ollama on the Windows PC's GPU.
 - Lesson: `localhost` always means "the machine I'm running on". Any tool on another machine
   needs the PC's IP.
-- Next: create the first Paperclip agent (OpenCode adapter, `ollama/qwen3.5:9b`).
+- Paperclip's new-agent screen blocked it: *"This connection does not support the current
+  harness and model"*. It forces an OpenRouter AI connection on OpenCode agents, which only
+  allows `openrouter/` models. Workaround: create the agent via the API with no AI connection.
+  See [docs/paperclip.md](docs/paperclip.md#create-the-agent-in-paperclip).
 
 ## 2026-10-01 — Network access works
 

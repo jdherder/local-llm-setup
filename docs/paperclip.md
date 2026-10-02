@@ -99,20 +99,47 @@ If that works, OpenCode itself is fine. Anything that breaks after this is on th
 
 ### Create the agent in Paperclip
 
-In the Paperclip UI, create (or edit) an agent and set:
+**Don't use the UI's new-agent screen for this.** In current Paperclip, that screen always
+attaches an **OpenRouter "AI connection"** to OpenCode agents, and that connection only accepts
+`openrouter/...` models. With `ollama/qwen3.5:9b` it shows *"This connection does not support
+the current harness and model"* and won't save. Once an agent has a connection attached,
+editing can't remove it.
 
-| Field   | Value                                                  |
-|---------|--------------------------------------------------------|
-| Adapter | **OpenCode** (`opencode_local`)                        |
-| Model   | `ollama/qwen3.5:9b` (format is `provider/model`)       |
-| cwd     | A folder for the agent to work in, e.g. `C:\paperclip\work` |
+(From the source: `NewAgentSetup.tsx` defaults OpenCode agents to an OpenRouter binding, and
+`isAiConnectionCompatible` requires OpenRouter bindings to use `openrouter/` models.)
 
-Paperclip copies your global OpenCode config for each run and adds its own permission settings,
-so the `ollama` provider above carries through.
+**Workaround:** create the agent through Paperclip's API *without* an AI connection. It then
+uses the machine's own OpenCode config, which has the `ollama` provider. Run these on the
+machine running Paperclip:
 
-Alternative to the config file: put the same `provider` block into the agent's **env** as
-`PAPERCLIP_OPENCODE_PROVIDERS` (a JSON object, just the part inside `"provider": { ... }`).
-Paperclip merges it into OpenCode's config at run time.
+```bash
+# 1. Find your company ID
+curl -s http://localhost:3100/api/companies
+
+# 2. Create the agent (replace COMPANY_ID, and the cwd path if you like)
+curl -s -X POST http://localhost:3100/api/companies/COMPANY_ID/agents \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "name": "Local Engineer",
+    "role": "engineer",
+    "title": "Engineer (local Qwen)",
+    "adapterType": "opencode_local",
+    "adapterConfig": {
+      "model": "ollama/qwen3.5:9b",
+      "cwd": "/home/jdherder/paperclip-work"
+    }
+  }'
+```
+
+The agent appears in the UI. Its AI connection section shows a notice offering to "adopt"
+connections. **Leave it alone**, since adopting would attach OpenRouter again.
+
+If the API returns 401/403, Paperclip is in authenticated mode rather than local trusted
+mode. Copy the session cookie from the browser's dev tools and add `-H 'Cookie: ...'`.
+
+Alternative to the config file: put the `provider` block into the agent's `adapterConfig.env`
+as `PAPERCLIP_OPENCODE_PROVIDERS` (a JSON string of just the part inside
+`"provider": { ... }`). Paperclip merges it into OpenCode's config at run time.
 
 ## 2b. Option B: Claude Code
 
@@ -151,6 +178,7 @@ to start or errors on auth, use Option A.
 
 | Symptom | Likely cause |
 |---------|--------------|
+| UI says *"This connection does not support the current harness and model"* | New-agent screen forces OpenRouter. Create the agent via the API (see above) |
 | `Model not found` | Model ID typo, or model missing from the `models` map in `opencode.json` |
 | Connection refused / `Cannot connect to API` | Wrong base URL, Ollama not running, or firewall (remote setup). Test with `curl <baseURL>/models` |
 | `opencode run` sits at `> build · model` forever | It's silently retrying a failed connection. Re-run with `--print-logs` to see the error |
