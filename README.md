@@ -10,6 +10,17 @@ different tool), I can follow these docs instead of re-discovering everything.
 |------------|------------|---------|-------------|
 | Desktop PC | Windows 11, RTX 5070 (12 GB VRAM) | Ollama + Paperclip (via OpenCode on Linux) | Working |
 
+## How it fits together
+
+```
+Windows PC (192.168.4.24)              Linux machine
+  RTX 5070, 12 GB VRAM                   Paperclip  (http://localhost:3100)
+  Ollama  :11434  <---- LAN ----         └─ OpenCode agents
+   ├─ qwen3.5:9b   (default)                  └─ ~/.config/opencode/opencode.json
+   ├─ qwen3.5:35b  (big, slow, background)        → ollama/<model> @ 192.168.4.24
+   └─ llama3.2     (smoke test)
+```
+
 ## Guides
 
 - [Ollama on Windows 11](docs/ollama-windows.md) — install, verify, pull and run a first model

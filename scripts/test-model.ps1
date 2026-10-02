@@ -3,7 +3,7 @@
   Quick check of an Ollama model: GPU fit, speed, and tool calling.
 
 .EXAMPLE
-  .\scripts\test-model.ps1 -Model qwen3:8b
+  .\scripts\test-model.ps1 -Model qwen3.5:9b
 #>
 param(
     [Parameter(Mandatory = $true)]

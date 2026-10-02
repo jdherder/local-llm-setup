@@ -7,7 +7,7 @@ What to check after pulling a new model. Record results in [models.md](models.md
 From the repo folder in PowerShell:
 
 ```powershell
-.\scripts\test-model.ps1 -Model qwen3:8b
+.\scripts\test-model.ps1 -Model qwen3.5:9b
 ```
 
 If Windows blocks the script ("running scripts is disabled"), allow it for this window only:

@@ -55,8 +55,9 @@ opencode --version
 
 ### Tell OpenCode about Ollama
 
-Create OpenCode's global config file at `%USERPROFILE%\.config\opencode\opencode.json`
-(`~/.config/opencode/opencode.json` on macOS/Linux):
+Create OpenCode's global config file at `~/.config/opencode/opencode.json` on Linux/macOS
+(`%USERPROFILE%\.config\opencode\opencode.json` on Windows). This is the working config on the
+Linux machine:
 
 ```json
 {
@@ -66,11 +67,11 @@ Create OpenCode's global config file at `%USERPROFILE%\.config\opencode\opencode
       "npm": "@ai-sdk/openai-compatible",
       "name": "Ollama (desktop)",
       "options": {
-        "baseURL": "http://localhost:11434/v1"
+        "baseURL": "http://192.168.4.24:11434/v1"
       },
       "models": {
-        "qwen3.5:9b": { "name": "Qwen 3.5 9B" },
-        "qwen3:8b":   { "name": "Qwen 3 8B" }
+        "qwen3.5:9b":  { "name": "Qwen 3.5 9B" },
+        "qwen3.5:35b": { "name": "Qwen 3.5 35B" }
       }
     }
   }
@@ -84,8 +85,9 @@ New-Item -ItemType Directory -Force "$env:USERPROFILE\.config\opencode" | Out-Nu
 notepad "$env:USERPROFILE\.config\opencode\opencode.json"
 ```
 
-**On Linux/macOS or WSL**, `localhost` means *that* machine, not the Windows PC. Use
-`http://192.168.4.24:11434/v1` unless Ollama is installed on the same machine. (WSL in its
+Only use `http://localhost:11434/v1` if OpenCode runs on the Windows PC itself.
+**On Linux/macOS or WSL**, `localhost` means *that* machine, not the Windows PC, so use the PC's IP
+as above. (WSL in its
 default NAT networking mode can't reach Windows via `localhost` either.)
 
 Check that OpenCode sees the models, then try one run by hand:
@@ -140,6 +142,18 @@ mode. Copy the session cookie from the browser's dev tools and add `-H 'Cookie: 
 Alternative to the config file: put the `provider` block into the agent's `adapterConfig.env`
 as `PAPERCLIP_OPENCODE_PROVIDERS` (a JSON string of just the part inside
 `"provider": { ... }`). Paperclip merges it into OpenCode's config at run time.
+
+### Add a new model
+
+1. Pull it on the Windows PC: `ollama pull <model>`.
+2. Add it to the `models` map in `opencode.json` (the key must match the Ollama name exactly).
+3. Check: `opencode models | grep ollama`, then
+   `opencode run --print-logs --model ollama/<model> "Say hello"`. The first run of a big model is
+   slow while it loads.
+4. Point agents at it (below), or create new ones with `"model": "ollama/<model>"`.
+
+To remove a model: `ollama rm <model>` on the PC, delete its line from `opencode.json`, and
+move any agents using it to another model.
 
 ### Change an existing agent's model
 

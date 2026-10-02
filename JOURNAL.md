@@ -2,6 +2,17 @@
 
 Newest entries at the top. Record what was run, what happened, and anything surprising.
 
+## 2026-10-02 — Model upgrades
+
+- Qwen 3.5 tags on ollama.com: `9b` 6.6 GB, `27b` 17 GB, `35b` 24 GB (the 35B-A3B MoE), `122b`
+  81 GB. All 256k context. `-mlx` tags are Mac-only.
+- Removed `qwen3:8b` (`ollama rm qwen3:8b`). Superseded by `qwen3.5:9b`.
+- Added `qwen3.5:35b` to the OpenCode config on the Linux machine, for slower but smarter
+  background agents. Needs ~32 GB system RAM (TODO: confirm the PC's RAM, test speed).
+- Switching existing Paperclip agents' model: `PATCH /api/agents/<id>` with
+  `{"adapterConfig": {"model": "ollama/qwen3.5:35b"}}` (it merges, so other settings stay).
+- Docs updated to use `qwen3.5:9b` in examples; README has a diagram of the setup.
+
 ## 2026-10-02 — Paperclip setup research
 
 - Read Paperclip's source: there's **no native Ollama adapter** (contrary to some blog posts).

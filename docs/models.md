@@ -9,7 +9,9 @@ Sizes are approximate for Ollama's default 4-bit quantization. Check
 | Model      | Params | Quant  | Size    | Max context | Capabilities              | Notes |
 |------------|--------|--------|---------|-------------|---------------------------|-------|
 | `llama3.2` | 3.2B   | Q4_K_M | 2.0 GB  | 128k        | completion, tools         | Works, fast. Good smoke test. |
-| `qwen3:8b` | 8.2B   | Q4_K_M | 5.2 GB  | **40k**     | completion, tools, thinking | Downloaded; test pending. |
+| `qwen3.5:9b` | 9B   | Q4_K_M | 6.6 GB  | 256k        | completion, tools, thinking, vision | **Current default.** Works with OpenCode + Paperclip. Did the task but skipped Paperclip's status update ("missing disposition"). |
+| `qwen3.5:35b` | 35B MoE (~3B active) | Q4_K_M | 24 GB | 256k | completion, tools, thinking, vision | Added for slow background work (GPU + RAM). Test pending. |
+| ~~`qwen3:8b`~~ | 8.2B | Q4_K_M | 5.2 GB | 40k | completion, tools, thinking | Removed (`ollama rm`). Superseded by `qwen3.5:9b`; 40k max context too small for agents. |
 
 Capabilities and max context come from `http://192.168.4.24:11434/api/tags` (or
 `ollama show <model>`). **Max context** is the most the model supports. Setting Ollama's
@@ -18,11 +20,10 @@ context length higher than that doesn't help.
 ## To try next: coding and harder tasks
 
 Newer generations (Qwen 3.5, Gemma 4) replace most of the older picks. Both support tool calling
-and long context (up to 256k), which fixes `qwen3:8b`'s 40k limit.
+and long context (up to 256k).
 
 | Model          | Size    | Why                                                                     |
 |----------------|---------|-------------------------------------------------------------------------|
-| `qwen3.5:9b`   | ~6.6 GB | **Next to try.** Direct upgrade to `qwen3:8b`: smarter, tools + thinking, 256k max context. Leaves ~4 GB for context on 12 GB. |
 | `gemma4:12b`   | ~8–9 GB? | Google's dense 12B, said to fit 12 GB. Tools + thinking, 256k max context. Less room for context. |
 | `gemma4:26b`   | ~17 GB  | Mixture-of-experts (only ~4B active per token). Doesn't fit 12 GB, but MoE models run tolerably when partly on CPU. Experiment. |
 | `gpt-oss:20b`  | ~14 GB  | OpenAI's open-weight model. Same idea: slightly too big, MoE, worth an experiment. |

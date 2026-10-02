@@ -71,7 +71,7 @@ macOS / Linux:
 export ANTHROPIC_BASE_URL="http://192.168.4.24:11434"
 export ANTHROPIC_AUTH_TOKEN="ollama"
 export ANTHROPIC_API_KEY=""
-claude --model qwen3:8b
+claude --model qwen3.5:9b
 ```
 
 Windows PowerShell:
@@ -80,7 +80,7 @@ Windows PowerShell:
 $env:ANTHROPIC_BASE_URL   = "http://192.168.4.24:11434"
 $env:ANTHROPIC_AUTH_TOKEN = "ollama"
 $env:ANTHROPIC_API_KEY    = ""
-claude --model qwen3:8b
+claude --model qwen3.5:9b
 ```
 
 The context length and other settings come from the **server** (the Windows PC), so set them
@@ -90,7 +90,7 @@ there. See [claude-code-ollama.md](claude-code-ollama.md).
 
 ```bash
 OLLAMA_HOST=http://192.168.4.24:11434 ollama list
-OLLAMA_HOST=http://192.168.4.24:11434 ollama run qwen3:8b
+OLLAMA_HOST=http://192.168.4.24:11434 ollama run qwen3.5:9b
 ```
 
 ### Other tools (OpenAI-compatible)
@@ -101,7 +101,7 @@ Most tools (Open WebUI, Continue, Cline, Paperclip adapters, Python `openai` lib
 |----------|------------------------------------|
 | Base URL | `http://192.168.4.24:11434/v1`     |
 | API key  | anything, e.g. `ollama` (it's ignored) |
-| Model    | `qwen3:8b` (as shown by `ollama list`) |
+| Model    | `qwen3.5:9b` (as shown by `ollama list`) |
 
 Tools with a native Ollama option just need `http://192.168.4.24:11434`.
 

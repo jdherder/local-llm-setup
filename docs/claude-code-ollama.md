@@ -23,7 +23,7 @@ Easiest: let Ollama set everything up. Claude Code must be installed first (step
 
 ```powershell
 ollama launch claude                    # pick a model from a menu
-ollama launch claude --model qwen3:8b   # or name one
+ollama launch claude --model qwen3.5:9b   # or name one
 ```
 
 If you get "unknown command", update Ollama.
@@ -34,7 +34,7 @@ Or do it manually. These settings only last for the current PowerShell window:
 $env:ANTHROPIC_BASE_URL   = "http://localhost:11434"   # no /v1 on the end
 $env:ANTHROPIC_AUTH_TOKEN = "ollama"
 $env:ANTHROPIC_API_KEY    = ""
-claude --model qwen3:8b
+claude --model qwen3.5:9b
 ```
 
 Run `claude` from inside the project folder you want it to work on.
@@ -47,17 +47,14 @@ Claude Code sends a large system prompt plus tool definitions and file contents.
 It's recommended to use **64k context or more**. With less, tool results and earlier
 conversation get cut off and the agent gets confused.
 
-Also check the model's **maximum** context (`ollama show <model>`). `qwen3:8b` tops out at
-**40k** (40960), so 64k isn't possible with it. Use 32k–40k.
+Also check the model's **maximum** context (`ollama show <model>`). Older models can be too
+short: `qwen3:8b` maxed out at 40k, which is why it was replaced. Qwen 3.5 models support 256k.
 
-On 12 GB of VRAM (see [hardware.md](hardware.md)), rough estimates for `qwen3:8b`:
+On 12 GB of VRAM (see [hardware.md](hardware.md)), `qwen3.5:9b` (6.6 GB) leaves roughly 4 GB for
+context. That should cover 32k. 64k probably needs the compressed KV cache below. Verify with
+`ollama ps`.
 
-| Context | Fits on GPU?                                                       |
-|---------|--------------------------------------------------------------------|
-| 32k     | Yes, about 10 GB total                                             |
-| 40k     | Borderline (~11 GB). Should fit with a compressed KV cache, below |
-
-For a model that supports 64k+, to fit 64k set these **user** environment variables, then quit Ollama from the tray and restart it:
+To fit 64k, set these **user** environment variables, then quit Ollama from the tray and restart it:
 
 | Variable                 | Value   | Effect                                          |
 |--------------------------|---------|-------------------------------------------------|
@@ -70,8 +67,8 @@ Then load the model and check `ollama ps` shows `100% GPU`. If it doesn't, drop 
 ## 4. Model choice
 
 The model **must support tool calling** (run `scripts/test-model.ps1` — see
-[testing-models.md](testing-models.md)). Candidates on 12 GB: `qwen3.5:9b` (supports 64k+ context, and
-leaves VRAM for it with a compressed KV cache) and `qwen3:8b` (max 40k). See [models.md](models.md).
+[testing-models.md](testing-models.md)). Candidates on 12 GB: `qwen3.5:9b` (fits on the GPU) and
+`qwen3.5:35b` (smarter, but runs partly on CPU and is slower). See [models.md](models.md).
 
 ## Sources
 
