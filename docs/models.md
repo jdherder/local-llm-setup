@@ -35,6 +35,34 @@ yourself (see [ollama-windows.md](ollama-windows.md#context-length)).
 Test each one on the same few real tasks ([testing-models.md](testing-models.md)) and record
 the results in the table above.
 
+## Bigger models, run slowly (GPU + system RAM)
+
+Models bigger than 12 GB still run: Ollama puts as many layers as fit on the GPU and the rest
+in system RAM on the CPU. Speed drops a lot for normal ("dense") models, but much less for
+**mixture-of-experts (MoE)** models, which only use a small slice of their weights per token.
+For background agent work, MoE models are the sweet spot.
+
+**Limit:** model size + context must fit in **VRAM + free system RAM**. Leave ~8 GB of RAM
+for Windows and apps. Check RAM with:
+
+```powershell
+[math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB)
+```
+
+| Model (check exact tag on ollama.com) | Type | Size (Q4) | RAM needed (approx.) | Expected speed on 12 GB GPU |
+|---|---|---|---|---|
+| `qwen3.5:35b-a3b` | MoE, ~3B active | ~22 GB | 32 GB | ~20 tok/s reported. **Best pick** |
+| `gemma4:26b` | MoE, ~4B active | ~17 GB | 32 GB | Similar |
+| `qwen3.5:27b` | Dense | ~17 GB | 32 GB | Slow, single digits |
+| `gpt-oss:120b` | MoE, ~5B active | ~65 GB | 64 GB+ (96 GB comfortable) | Low teens at best |
+| `qwen3.5:122b-a10b` | MoE, ~10B active | ~70 GB | 96 GB+ | Single digits |
+
+Notes:
+- `ollama ps` will show a split like `45%/55% CPU/GPU`. That's expected here.
+- Keep context modest (16k–32k). It also has to fit.
+- A big model loaded in the background holds VRAM and RAM. Unload it (`ollama stop <model>`)
+  before gaming.
+
 ## For agent tools (Paperclip, OpenCode, etc.)
 
 Agent tools need more than chat:
