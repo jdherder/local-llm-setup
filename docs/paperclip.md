@@ -194,6 +194,32 @@ for a in json.load(sys.stdin):
     print(a["id"], a["name"], a["adapterType"], a["adapterConfig"].get("model"), sep="  ")'
 ```
 
+### Move an existing Claude Code agent to a local model
+
+Agents created in the UI (or hired by other agents) default to the **Claude Code** adapter
+(`claude_local`) with no model set, which means they use Claude via your Anthropic login.
+A `PATCH` can switch the adapter. Paperclip keeps the agent's `cwd`, `env`, and instructions
+files when the adapter type changes.
+
+```bash
+# Switch one agent to OpenCode + local model
+curl -s -X PATCH http://localhost:3100/api/agents/AGENT_ID \
+  -H 'Content-Type: application/json' \
+  -d '{"adapterType": "opencode_local", "adapterConfig": {"model": "ollama/qwen3.5:35b"}}'
+
+# Switch it back to Claude Code (no model = Paperclip's default Claude model)
+curl -s -X PATCH http://localhost:3100/api/agents/AGENT_ID \
+  -H 'Content-Type: application/json' \
+  -d '{"adapterType": "claude_local", "adapterConfig": {}}'
+```
+
+If the switch fails with *"Select an AI connection compatible with the new harness and model"*,
+the agent has a managed AI connection attached that can't be removed. Create a new OpenCode
+agent via the API instead (above) and copy its instructions over.
+
+Move one agent at a time and compare results. Keep coordinating roles (CEO, Chief of Staff)
+on Claude. Local models struggle most with Paperclip's task management.
+
 ## 2b. Option B: Claude Code
 
 Install Claude Code (see [claude-code-ollama.md](claude-code-ollama.md)), then create an agent with:

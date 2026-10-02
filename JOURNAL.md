@@ -13,6 +13,10 @@ Newest entries at the top. Record what was run, what happened, and anything surp
 - Switching existing Paperclip agents' model: `PATCH /api/agents/<id>` with
   `{"adapterConfig": {"model": "ollama/qwen3.5:35b"}}` (it merges, so other settings stay).
 - Docs updated to use `qwen3.5:9b` in examples; README has a diagram of the setup.
+- The update loop changed nothing: all 4 agents (Financial Analyst, Market Researcher,
+  Operations Researcher, Chief of Staff) are **Claude Code** agents with no model set (= Claude).
+  "Local Engineer" no longer appears in the list. Moving agents to local requires switching the
+  adapter type too: `PATCH {"adapterType":"opencode_local","adapterConfig":{"model":...}}`.
 
 ## 2026-10-02 — Paperclip setup research
 
