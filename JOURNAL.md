@@ -11,6 +11,10 @@ Newest entries at the top. Record what was run, what happened, and anything surp
 - Installed OpenCode on the Linux machine. `opencode run` hung at `> build · qwen3.5:9b`
   with no output. `--print-logs` showed `Cannot connect to API`: the config had
   `localhost`, but Ollama is on the Windows PC. Fix: `baseURL` → `http://192.168.4.24:11434/v1`.
+  ✅ Works: OpenCode on Linux → Ollama on the Windows PC's GPU.
+- Lesson: `localhost` always means "the machine I'm running on". Any tool on another machine
+  needs the PC's IP.
+- Next: create the first Paperclip agent (OpenCode adapter, `ollama/qwen3.5:9b`).
 
 ## 2026-10-01 — Network access works
 
