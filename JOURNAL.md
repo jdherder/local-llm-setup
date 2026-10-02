@@ -18,6 +18,13 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   harness and model"*. It forces an OpenRouter AI connection on OpenCode agents, which only
   allows `openrouter/` models. Workaround: create the agent via the API with no AI connection.
   See [docs/paperclip.md](docs/paperclip.md#create-the-agent-in-paperclip).
+- Created "Local Engineer" via the API (Paperclip is in local trusted mode, no auth needed).
+- ✅ **First end-to-end run:** task JHF-2 "reply with Test complete" → agent replied
+  "Test complete". Paperclip → OpenCode (Linux) → Ollama `qwen3.5:9b` (Windows GPU).
+- But Paperclip flagged **"Missing issue disposition"**: the agent replied without updating
+  the issue's status (done / blocked / needs review) through Paperclip's API. A corrective
+  retry did the same, so it escalated to "board decision required". The 9B model doesn't
+  reliably follow Paperclip's work protocol. Closed it by hand.
 
 ## 2026-10-01 — Network access works
 

@@ -174,11 +174,29 @@ to start or errors on auth, use Option A.
   so they can edit files and run commands without asking. Point `cwd` at a dedicated folder.
 - Mix and match: use local models for simple agents, and a cloud model for the hard roles.
 
+## "Missing issue disposition"
+
+Paperclip expects an agent to **update the issue's status** when it finishes: mark it done,
+blocked, send it for review, or hand it off. The agent does this by calling Paperclip's API
+during the run. If a run succeeds but the status isn't changed, Paperclip posts
+*"Missing issue disposition"* and wakes the agent once more to fix it. If that also fails, it
+escalates: *"Missing disposition recovery blocked … board decision required"*.
+
+Small local models often do the work but skip this step. Options:
+
+- **Close it yourself:** open the issue and set its status (e.g. Done). That's the "board
+  decision".
+- **Spell it out in the task:** end task descriptions with *"When finished, mark this issue as
+  done using the Paperclip API."*
+- **Use a stronger model** for agents that need to manage their own issues, and keep local
+  models on simple, well-scoped work.
+
 ## Troubleshooting
 
 | Symptom | Likely cause |
 |---------|--------------|
 | UI says *"This connection does not support the current harness and model"* | New-agent screen forces OpenRouter. Create the agent via the API (see above) |
+| *Missing issue disposition* / *recovery blocked* | Agent didn't update the issue status. See above |
 | `Model not found` | Model ID typo, or model missing from the `models` map in `opencode.json` |
 | Connection refused / `Cannot connect to API` | Wrong base URL, Ollama not running, or firewall (remote setup). Test with `curl <baseURL>/models` |
 | `opencode run` sits at `> build · model` forever | It's silently retrying a failed connection. Re-run with `--print-logs` to see the error |

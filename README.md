@@ -8,7 +8,7 @@ different tool), I can follow these docs instead of re-discovering everything.
 
 | Machine    | OS / GPU   | Runtime | Status      |
 |------------|------------|---------|-------------|
-| Desktop PC | Windows 11, RTX 5070 (12 GB VRAM) | Ollama  | Working (llama3.2) |
+| Desktop PC | Windows 11, RTX 5070 (12 GB VRAM) | Ollama + Paperclip (via OpenCode on Linux) | Working |
 
 ## Guides
 
