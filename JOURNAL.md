@@ -26,7 +26,7 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   retry did the same, so it escalated to "board decision required". The 9B model doesn't
   reliably follow Paperclip's work protocol. Closed it by hand.
 - Question: can a bigger model fit if slow is OK? Yes, via GPU + system RAM offload.
-  Best bet: MoE models (`qwen3.5:35b-a3b` ~22 GB, ~20 tok/s reported on 12 GB cards).
+  Best bet: MoE models (`qwen3.5:35b` 24 GB (the 35B-A3B MoE), ~20 tok/s reported on 12 GB cards).
   Depends on system RAM (TODO: check). See [docs/models.md](docs/models.md).
 
 ## 2026-10-01 — Network access works

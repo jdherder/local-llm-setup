@@ -49,13 +49,17 @@ for Windows and apps. Check RAM with:
 [math]::Round((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB)
 ```
 
-| Model (check exact tag on ollama.com) | Type | Size (Q4) | RAM needed (approx.) | Expected speed on 12 GB GPU |
+| Model | Type | Size (Q4) | RAM needed (approx.) | Expected speed on 12 GB GPU |
 |---|---|---|---|---|
-| `qwen3.5:35b-a3b` | MoE, ~3B active | ~22 GB | 32 GB | ~20 tok/s reported. **Best pick** |
+| `qwen3.5:35b` | MoE (35B-A3B), ~3B active | 24 GB | 32 GB | ~20 tok/s reported. **Best pick** |
 | `gemma4:26b` | MoE, ~4B active | ~17 GB | 32 GB | Similar |
-| `qwen3.5:27b` | Dense | ~17 GB | 32 GB | Slow, single digits |
+| `qwen3.5:27b` | Dense | 17 GB | 32 GB | Slow, single digits |
 | `gpt-oss:120b` | MoE, ~5B active | ~65 GB | 64 GB+ (96 GB comfortable) | Low teens at best |
-| `qwen3.5:122b-a10b` | MoE, ~10B active | ~70 GB | 96 GB+ | Single digits |
+| `qwen3.5:122b` | MoE (122B-A10B), ~10B active | 81 GB | 96 GB+ | Single digits |
+
+Qwen 3.5 tags from ollama.com (2026-10-02): `0.8b` 1.0 GB, `2b` 2.7 GB, `4b` 3.4 GB,
+`9b` (= `latest`) 6.6 GB, `27b` 17 GB, `35b` 24 GB, `122b` 81 GB. All have 256k max context and
+accept text + images. Ignore the `-mlx` tags; those are for Apple Silicon Macs only.
 
 Notes:
 - `ollama ps` will show a split like `45%/55% CPU/GPU`. That's expected here.
