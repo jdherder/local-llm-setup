@@ -16,6 +16,7 @@ different tool), I can follow these docs instead of re-discovering everything.
 - [Hardware](docs/hardware.md) — GPU specs and which model sizes fit
 - [Testing a model](docs/testing-models.md) — speed, GPU fit, tool calling, and quality checks
 - [Claude Code with Ollama](docs/claude-code-ollama.md) — run the Claude Code agent on a local model
+- [Paperclip with local Ollama](docs/paperclip.md) — run Paperclip agents on local models via OpenCode
 - [Network access](docs/network-access.md) — use the PC's Ollama from other computers on the LAN
 - [Models](docs/models.md) — models tried, what to try next, and using them with agent tools like Paperclip
 

@@ -50,23 +50,4 @@ Agent tools need more than chat:
 
 ### Paperclip
 
-[Paperclip](https://github.com/paperclipai/paperclip) orchestrates teams of AI agents
-(Node.js server + web UI; needs Node.js 24.11+). Install:
-
-```powershell
-npx paperclipai@latest onboard --yes
-```
-
-Ways to point it at Ollama (check the Paperclip docs for your version):
-
-- A native `ollama_local` adapter, reported to call Ollama's `/api/chat` directly with tool calling.
-  An [open issue](https://github.com/paperclipai/paperclip/issues/2979) still asks for native
-  Ollama support, so confirm it's in your version.
-- Or run agents through an adapter like **OpenCode**, configured to use Ollama.
-- Ollama's OpenAI-compatible endpoint is `http://localhost:11434/v1` (any API key string works).
-
-Models people have reported using with Paperclip + Ollama: `qwen2.5-coder:14b`, `gpt-oss:20b`
-([ollama/ollama#15976](https://github.com/ollama/ollama/issues/15976)).
-
-A sensible setup: local models for simple or private agent tasks, and a cloud model for
-the hard ones. Paperclip can mix both.
+See [paperclip.md](paperclip.md) for setup with local Ollama.

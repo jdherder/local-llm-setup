@@ -2,6 +2,13 @@
 
 Newest entries at the top. Record what was run, what happened, and anything surprising.
 
+## 2026-10-02 — Paperclip setup research
+
+- Read Paperclip's source: there's **no native Ollama adapter** (contrary to some blog posts).
+  The supported path is the **OpenCode** adapter with an `ollama` custom provider pointing at
+  `http://localhost:11434/v1`, and agent model `ollama/qwen3.5:9b`. Claude Code adapter +
+  `ANTHROPIC_BASE_URL` is a fallback. Steps in [docs/paperclip.md](docs/paperclip.md).
+
 ## 2026-10-01 — Network access works
 
 - Opened `http://192.168.4.24:11434` in my phone's browser → **"Ollama is running"**. ✅
