@@ -8,6 +8,9 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   The supported path is the **OpenCode** adapter with an `ollama` custom provider pointing at
   `http://localhost:11434/v1`, and agent model `ollama/qwen3.5:9b`. Claude Code adapter +
   `ANTHROPIC_BASE_URL` is a fallback. Steps in [docs/paperclip.md](docs/paperclip.md).
+- Installed OpenCode on the Linux machine. `opencode run` hung at `> build · qwen3.5:9b`
+  with no output. `--print-logs` showed `Cannot connect to API`: the config had
+  `localhost`, but Ollama is on the Windows PC. Fix: `baseURL` → `http://192.168.4.24:11434/v1`.
 
 ## 2026-10-01 — Network access works
 

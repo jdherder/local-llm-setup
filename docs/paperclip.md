@@ -84,11 +84,15 @@ New-Item -ItemType Directory -Force "$env:USERPROFILE\.config\opencode" | Out-Nu
 notepad "$env:USERPROFILE\.config\opencode\opencode.json"
 ```
 
+**On Linux/macOS or WSL**, `localhost` means *that* machine, not the Windows PC. Use
+`http://192.168.4.24:11434/v1` unless Ollama is installed on the same machine. (WSL in its
+default NAT networking mode can't reach Windows via `localhost` either.)
+
 Check that OpenCode sees the models, then try one run by hand:
 
 ```powershell
 opencode models                      # should list ollama/qwen3.5:9b
-opencode run --model ollama/qwen3.5:9b "Say hello and list the files in this folder"
+opencode run --print-logs --model ollama/qwen3.5:9b "Say hello and list the files in this folder"
 ```
 
 If that works, OpenCode itself is fine. Anything that breaks after this is on the Paperclip side.
@@ -148,7 +152,8 @@ to start or errors on auth, use Option A.
 | Symptom | Likely cause |
 |---------|--------------|
 | `Model not found` | Model ID typo, or model missing from the `models` map in `opencode.json` |
-| Connection refused | Wrong base URL, Ollama not running, or firewall (remote setup) |
+| Connection refused / `Cannot connect to API` | Wrong base URL, Ollama not running, or firewall (remote setup). Test with `curl <baseURL>/models` |
+| `opencode run` sits at `> build · model` forever | It's silently retrying a failed connection. Re-run with `--print-logs` to see the error |
 | Agent loops / forgets instructions | Context too small. Raise Ollama's context length |
 | Very slow | Model or context spilled to CPU. Check `ollama ps` |
 | Tool calls fail / garbage output | Model weak at tool use. Try a different model |
