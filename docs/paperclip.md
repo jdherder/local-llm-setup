@@ -40,6 +40,20 @@ This sets things up and starts the web UI at <http://localhost:3100>. Later, sta
 npx paperclipai run
 ```
 
+### Stop Paperclip
+
+- In the terminal running it: **Ctrl+C**.
+- If that terminal is gone, find and stop the process:
+
+  ```bash
+  ss -ltnp | grep 3100        # shows the process using port 3100
+  pkill -f paperclipai        # stop it
+  ```
+
+- Then free the PC's GPU/RAM: `ollama stop <model>` on the Windows PC (or wait 5 minutes).
+
+Agents only run while Paperclip is running. Start again with `npx paperclipai run`.
+
 ## 2a. Option A: OpenCode (recommended)
 
 ### Install OpenCode
