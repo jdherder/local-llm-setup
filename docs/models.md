@@ -10,7 +10,7 @@ Sizes are approximate for Ollama's default 4-bit quantization. Check
 |------------|--------|--------|---------|-------------|---------------------------|-------|
 | `llama3.2` | 3.2B   | Q4_K_M | 2.0 GB  | 128k        | completion, tools         | Works, fast. Good smoke test. |
 | `qwen3.5:9b` | 9B   | Q4_K_M | 6.6 GB  | 256k        | completion, tools, thinking, vision | **Current default.** Works with OpenCode + Paperclip. Did the task but skipped Paperclip's status update ("missing disposition"). |
-| `qwen3.5:35b` | 35B MoE (~3B active) | Q4_K_M | 24 GB | 256k | completion, tools, thinking, vision | Added for slow background work (GPU + RAM). Test pending. |
+| `qwen3.5:35b` | 35B MoE (~3B active) | Q4_K_M | 24 GB | 256k | completion, tools, thinking, vision | Works (GPU + 32 GB RAM split). For slower, smarter background agents. ~13 GB of it sits in system RAM, so close heavy apps. |
 | ~~`qwen3:8b`~~ | 8.2B | Q4_K_M | 5.2 GB | 40k | completion, tools, thinking | Removed (`ollama rm`). Superseded by `qwen3.5:9b`; 40k max context too small for agents. |
 
 Capabilities and max context come from `http://192.168.4.24:11434/api/tags` (or

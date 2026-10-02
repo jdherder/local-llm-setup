@@ -181,7 +181,14 @@ for id in $(curl -s http://localhost:3100/api/companies/$COMPANY/agents \
 done
 ```
 
-(`jq` formats JSON: `sudo apt install jq` if missing.)
+(`jq` formats JSON: `sudo apt install jq` if missing. Without it, use Python to list agents:)
+
+```bash
+curl -s http://localhost:3100/api/companies/$COMPANY/agents | python3 -c '
+import json, sys
+for a in json.load(sys.stdin):
+    print(a["id"], a["name"], a["adapterType"], a["adapterConfig"].get("model"), sep="  ")'
+```
 
 ## 2b. Option B: Claude Code
 
