@@ -181,6 +181,10 @@ for id in $(curl -s http://localhost:3100/api/companies/$COMPANY/agents \
 done
 ```
 
+`COMPANY` must be set in the same terminal session. If it's empty, the URL becomes
+`/companies//agents`, the API returns an error object instead of a list, and `jq` fails with
+*"Cannot index string with string"*. Check with `echo $COMPANY`.
+
 (`jq` formats JSON: `sudo apt install jq` if missing. Without it, use Python to list agents:)
 
 ```bash
