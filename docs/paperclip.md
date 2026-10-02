@@ -141,6 +141,34 @@ Alternative to the config file: put the `provider` block into the agent's `adapt
 as `PAPERCLIP_OPENCODE_PROVIDERS` (a JSON string of just the part inside
 `"provider": { ... }`). Paperclip merges it into OpenCode's config at run time.
 
+### Change an existing agent's model
+
+`PATCH` merges into the existing `adapterConfig`, so you only need to send the field you're
+changing. Add the new model to `opencode.json`'s `models` map first.
+
+```bash
+COMPANY=3071a70b-4e5a-4de8-9357-e979b35cda95
+
+# List agents with their IDs and current models
+curl -s http://localhost:3100/api/companies/$COMPANY/agents \
+  | jq -r '.[] | "\(.id)  \(.name)  \(.adapterType)  \(.adapterConfig.model)"'
+
+# Update one agent
+curl -s -X PATCH http://localhost:3100/api/agents/AGENT_ID \
+  -H 'Content-Type: application/json' \
+  -d '{"adapterConfig": {"model": "ollama/qwen3.5:35b"}}'
+
+# Or update every OpenCode agent at once
+for id in $(curl -s http://localhost:3100/api/companies/$COMPANY/agents \
+            | jq -r '.[] | select(.adapterType=="opencode_local") | .id'); do
+  curl -s -X PATCH http://localhost:3100/api/agents/$id \
+    -H 'Content-Type: application/json' \
+    -d '{"adapterConfig": {"model": "ollama/qwen3.5:35b"}}' > /dev/null && echo "updated $id"
+done
+```
+
+(`jq` formats JSON: `sudo apt install jq` if missing.)
+
 ## 2b. Option B: Claude Code
 
 Install Claude Code (see [claude-code-ollama.md](claude-code-ollama.md)), then create an agent with:
