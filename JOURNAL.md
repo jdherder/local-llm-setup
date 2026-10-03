@@ -2,6 +2,14 @@
 
 Newest entries at the top. Record what was run, what happened, and anything surprising.
 
+## 2026-10-03 — Paperclip on another machine
+
+- Question: is OpenCode required? Can't Paperclip use Ollama's `/v1` directly? No. Paperclip
+  always runs an agent harness, and `/v1` is just the model. But OpenCode isn't the only harness:
+  **Pi (`pi_local`)** has no AI-connection requirement in Paperclip, so it should avoid the
+  OpenRouter blocker and work from the UI. Untested. See
+  [docs/paperclip.md](docs/paperclip.md#2c-option-c-pi-no-ai-connection-blocker).
+
 ## 2026-10-02 — Model upgrades
 
 - Qwen 3.5 tags on ollama.com: `9b` 6.6 GB, `27b` 17 GB, `35b` 24 GB (the 35B-A3B MoE), `122b`

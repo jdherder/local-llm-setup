@@ -9,8 +9,15 @@ Instead, use one of the agent CLIs it supports and point that CLI at Ollama:
 
 | Option | Adapter | How it reaches Ollama |
 |--------|---------|-----------------------|
-| **A (recommended)** | OpenCode (`opencode_local`) | OpenCode custom provider → Ollama's OpenAI-compatible `/v1` API |
+| **A (tested, working)** | OpenCode (`opencode_local`) | OpenCode custom provider → Ollama's OpenAI-compatible `/v1` API |
 | B | Claude Code (`claude_local`) | `ANTHROPIC_BASE_URL` env var → Ollama's Anthropic-compatible API |
+| **C (untested, likely easiest)** | Pi (`pi_local`) | Pi custom provider → Ollama's `/v1` API. No AI-connection blocker, so it can be set up in the UI |
+
+**Why not point Paperclip straight at Ollama's `/v1` endpoint?** Paperclip doesn't talk to models
+directly. Every agent runs an *agent program* (a "harness") that loops: ask the model, run the
+tools it asks for (read files, run commands, call Paperclip's API), and repeat. Ollama's `/v1` is
+only the model. The `http` adapter doesn't help either: it POSTs a webhook to an external agent
+*service*, not a chat API. So some harness (OpenCode, Pi, Codex, Claude Code…) is always needed.
 
 Option A is the better fit: OpenCode is built to work with many providers, and Paperclip's
 OpenCode adapter has explicit support for custom providers.
@@ -257,6 +264,47 @@ for background tasks, which Ollama doesn't have.
 Caveats: Paperclip's Claude adapter expects real Anthropic credentials, and Claude Code's
 prompts are large (it recommends 64k context). Treat this as an experiment. If the agent fails
 to start or errors on auth, use Option A.
+
+## 2c. Option C: Pi (no AI-connection blocker)
+
+[Pi](https://github.com/badlogic/pi-mono) is a small coding agent. In Paperclip's source, `pi_local`
+has **no AI-connection mapping**, so the new-agent screen doesn't force OpenRouter on it the
+way it does for OpenCode. You should be able to create Pi agents in the UI normally.
+
+Install it on the machine running Paperclip (this is the package Paperclip itself installs):
+
+```bash
+npm install -g @earendil-works/pi-coding-agent
+pi --version
+```
+
+Tell Pi about Ollama in `~/.pi/agent/models.json` (format from Pi's docs, so verify against
+your installed version):
+
+```json
+{
+  "providers": {
+    "ollama": {
+      "baseUrl": "http://192.168.4.24:11434/v1",
+      "api": "openai-completions",
+      "apiKey": "ollama",
+      "models": [
+        { "id": "qwen3.5:9b" },
+        { "id": "qwen3.5:35b" }
+      ]
+    }
+  }
+}
+```
+
+Check:
+
+```bash
+pi --list-models | grep ollama
+pi --provider ollama --model qwen3.5:9b -p "Say hello"
+```
+
+Then in Paperclip's UI, create an agent with **Adapter: Pi**, **Model: `ollama/qwen3.5:9b`**.
 
 ## 3. Start small
 
