@@ -9,6 +9,12 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   **Pi (`pi_local`)** has no AI-connection requirement in Paperclip, so it should avoid the
   OpenRouter blocker and work from the UI. Untested. See
   [docs/paperclip.md](docs/paperclip.md#2c-option-c-pi-no-ai-connection-blocker).
+- New machine, Pi installed, `pi` works in the terminal, and the exact probe command works. But
+  Paperclip's **Run test** failed instantly: *command not found in path: pi*. Paperclip's
+  process `PATH` doesn't include npm's global bin. Fix: symlink `pi` (and `node`) into
+  `/usr/local/bin`.
+- The Pi setup screen's "API key provider: OpenRouter" field is harmless for Pi. It only names
+  the env var for an optional key and isn't enforced.
 
 ## 2026-10-02 — Model upgrades
 

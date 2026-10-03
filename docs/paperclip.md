@@ -306,6 +306,19 @@ pi --provider ollama --model qwen3.5:9b -p "Say hello"
 
 Then in Paperclip's UI, create an agent with **Adapter: Pi**, **Model: `ollama/qwen3.5:9b`**.
 
+**If the UI's Run test fails immediately with "command not found in path: pi":** Paperclip's
+server process can't see `pi` on its `PATH`. This is common when Node comes from nvm, because
+npm's global bin folder is only on your interactive shell's `PATH`. Fix by linking it into
+a standard location, then restart Paperclip:
+
+```bash
+sudo ln -sf "$(which pi)" /usr/local/bin/pi
+sudo ln -sf "$(which node)" /usr/local/bin/node   # pi is a Node script; make sure node is findable too
+```
+
+(Alternatively, create the agent via the API with `"command": "<output of which pi>"` in
+`adapterConfig`.)
+
 ## 3. Start small
 
 - Begin with **one agent** and one small, concrete task (e.g. "create a README describing
