@@ -47,6 +47,22 @@ This sets things up and starts the web UI at <http://localhost:3100>. Later, sta
 npx paperclipai run
 ```
 
+### Always start Paperclip from the same folder
+
+Paperclip picks its config (and so its database) by looking for a `.paperclip/config.json` in
+the **current folder and its parents**, and only falls back to the default instance in
+`~/.paperclip/` if none is found. Starting it from inside a project that has its own
+`.paperclip/` folder gives you a different, empty org. Your data isn't gone; it's in the
+other instance.
+
+Safest: always start it from your home folder, or pin the config explicitly:
+
+```bash
+cd ~ && npx paperclipai run
+# or
+PAPERCLIP_CONFIG=~/.paperclip/instances/default/config.json npx paperclipai run
+```
+
 ### Stop Paperclip
 
 - In the terminal running it: **Ctrl+C**.
