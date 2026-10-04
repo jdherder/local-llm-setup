@@ -105,6 +105,27 @@ Most tools (Open WebUI, Continue, Cline, Paperclip adapters, Python `openai` lib
 
 Tools with a native Ollama option just need `http://192.168.4.24:11434`.
 
+### macOS: Node tools can't connect but `curl` can
+
+Symptom: `curl http://192.168.4.24:11434` works, but Node-based tools (Pi, Paperclip, OpenCode
+via npm) fail with *Connection error* / `EHOSTUNREACH`. Confirm with:
+
+```bash
+node -e 'fetch("http://192.168.4.24:11434/api/tags").then(r=>console.log("OK", r.status)).catch(e=>console.error("FAIL", e.cause ?? e))'
+```
+
+Cause: macOS 15+ **Local Network privacy**. Apple's own tools like `curl` are exempt, but other
+programs inherit the permission of the app they were launched from. If that app isn't allowed,
+LAN connections fail with `EHOSTUNREACH`.
+
+Fix:
+1. Work out which app the shell is really running in. If it's an editor's built-in terminal
+   (VS Code, Cursor, Zed…), *that editor* needs the permission, not Terminal/iTerm.
+2. System Settings → Privacy & Security → **Local Network** → enable that app (toggle off/on
+   if it's already on).
+3. Fully quit the app (⌘Q) and reopen it.
+4. Still failing? **Restart the Mac.** The permission is known to stick until a reboot.
+
 ## Security
 
 - **Ollama has no password.** Anyone who can reach port 11434 can use your GPU, run any

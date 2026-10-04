@@ -13,6 +13,10 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   Paperclip's **Run test** failed instantly: *command not found in path: pi*. Paperclip's
   process `PATH` doesn't include npm's global bin. Fix: symlink `pi` (and `node`) into
   `/usr/local/bin`.
+- Then the Pi test failed with *Connection error*. `curl` to Ollama worked from the same
+  terminal, but `node -e fetch(...)` gave `EHOSTUNREACH`. Cause: macOS Local Network privacy
+  blocks the Node binary (curl is exempt). See
+  [docs/network-access.md](docs/network-access.md#macos-node-tools-cant-connect-but-curl-can).
 - The Pi setup screen's "API key provider: OpenRouter" field is harmless for Pi. It only names
   the env var for an optional key and isn't enforced.
 
