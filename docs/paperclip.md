@@ -79,9 +79,13 @@ upgraded database:
 
 ```bash
 cd ~
-npx paperclipai@latest db:backup     # optional safety backup
 npx paperclipai@latest run
+# optional, in a second terminal while it's running:
+npx paperclipai@latest db:backup
 ```
+
+`db:backup` needs Paperclip's built-in database to be running, which only happens while
+Paperclip itself is running. Otherwise it fails with `connect ECONNREFUSED 127.0.0.1:54329`.
 
 ### Stop Paperclip
 
