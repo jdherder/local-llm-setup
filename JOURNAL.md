@@ -17,6 +17,8 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   terminal, but `node -e fetch(...)` gave `EHOSTUNREACH`. Cause: macOS Local Network privacy
   blocks the Node binary (curl is exempt). See
   [docs/network-access.md](docs/network-access.md#macos-node-tools-cant-connect-but-curl-can).
+  ✅ Fixed by fully quitting and reopening **iTerm** (it already had Local Network permission;
+  the running instance just hadn't picked it up).
 - The Pi setup screen's "API key provider: OpenRouter" field is harmless for Pi. It only names
   the env var for an optional key and isn't enforced.
 
