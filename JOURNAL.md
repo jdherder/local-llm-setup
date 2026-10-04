@@ -25,6 +25,9 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   dropped in current migrations). Fix: `cd ~ && npx paperclipai@latest run`. Also learned that
   Paperclip looks for `.paperclip/config.json` in the current folder and its parents, so always
   start from `~`.
+- `pi` "command not found in PATH" again after restarting iTerm. Likely cause: with **fnm**,
+  `which pi` points into a temporary per-shell folder (`fnm_multishells/<random>`), so the earlier
+  symlink broke when the shell closed. Fix: symlink from fnm's stable `aliases/default/bin`.
 - The Pi setup screen's "API key provider: OpenRouter" field is harmless for Pi. It only names
   the env var for an optional key and isn't enforced.
 

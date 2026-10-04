@@ -359,6 +359,19 @@ sudo ln -sf "$(which node)" /usr/local/bin/node   # pi is a Node script; make su
 (Alternatively, create the agent via the API with `"command": "<output of which pi>"` in
 `adapterConfig`.)
 
+**fnm users (macOS):** `which pi` returns a *temporary* per-terminal path
+(`~/Library/Caches/fnm_multishells/<random>/bin/pi`) that disappears when the terminal closes,
+so a symlink to it breaks after restarting the terminal. Link to fnm's stable `default` alias
+instead:
+
+```bash
+FNM_DEFAULT="$HOME/Library/Application Support/fnm/aliases/default/bin"
+ls "$FNM_DEFAULT/pi" "$FNM_DEFAULT/node"          # both should exist
+sudo mkdir -p /usr/local/bin
+sudo ln -sf "$FNM_DEFAULT/pi"   /usr/local/bin/pi
+sudo ln -sf "$FNM_DEFAULT/node" /usr/local/bin/node
+```
+
 ## 3. Start small
 
 - Begin with **one agent** and one small, concrete task (e.g. "create a README describing
