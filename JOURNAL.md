@@ -19,6 +19,12 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   [docs/network-access.md](docs/network-access.md#macos-node-tools-cant-connect-but-curl-can).
   ✅ Fixed by fully quitting and reopening **iTerm** (it already had Local Network permission;
   the running instance just hadn't picked it up).
+- After restarting, Paperclip looked like a **brand-new org**, then logged
+  `column companies.attachment_max_bytes does not exist`. Cause: `npx paperclipai run` used an
+  older cached Paperclip, while the database had been upgraded by a newer one (that column is
+  dropped in current migrations). Fix: `cd ~ && npx paperclipai@latest run`. Also learned that
+  Paperclip looks for `.paperclip/config.json` in the current folder and its parents, so always
+  start from `~`.
 - The Pi setup screen's "API key provider: OpenRouter" field is harmless for Pi. It only names
   the env var for an optional key and isn't enforced.
 

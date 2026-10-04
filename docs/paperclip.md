@@ -58,9 +58,29 @@ other instance.
 Safest: always start it from your home folder, or pin the config explicitly:
 
 ```bash
-cd ~ && npx paperclipai run
+cd ~ && npx paperclipai@latest run
 # or
-PAPERCLIP_CONFIG=~/.paperclip/instances/default/config.json npx paperclipai run
+PAPERCLIP_CONFIG=~/.paperclip/instances/default/config.json npx paperclipai@latest run
+```
+
+### Use the same Paperclip version every time
+
+`npx paperclipai run` can reuse an **older cached copy** from `~/.npm/_npx/`, while
+`npx paperclipai@latest …` fetches the newest. If a newer version has already upgraded the
+database, an older version then crashes with errors like:
+
+```
+ERROR: GET /api/companies 500 — ... column companies.attachment_max_bytes does not exist
+```
+
+(That column is *removed* by a recent migration, so the database is newer than the code.) The UI
+then looks empty or broken. Fix: always run the latest, and never point an older version at an
+upgraded database:
+
+```bash
+cd ~
+npx paperclipai@latest db:backup     # optional safety backup
+npx paperclipai@latest run
 ```
 
 ### Stop Paperclip
