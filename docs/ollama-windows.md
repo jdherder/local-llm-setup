@@ -185,6 +185,12 @@ Example from PowerShell:
   Run the same command again; Ollama keeps the parts already downloaded and continues from there.
   If it keeps failing: use `ollama pull <model>` and retry, pause VPNs or
   antivirus web filtering, check free disk space, and restart Ollama from the tray.
+- **`llama-server process has terminated: exit status 0xc0000409`** — the model runner
+  crashed on the PC (Windows reports any hard crash this way, not an actual attack). Usually it
+  has run out of memory, or a setting doesn't suit that model. Check the end of the log:
+  `Get-Content $env:LOCALAPPDATA\Ollama\server.log -Tail 80`. Then try: `ollama run <model> "hi"`
+  directly, a lower context length, closing GPU/RAM-heavy apps, temporarily removing
+  `OLLAMA_KV_CACHE_TYPE` / `OLLAMA_FLASH_ATTENTION`, and updating Ollama.
 - **Port 11434 in use** — another Ollama instance is probably running; check the tray.
 
 ## Updating / uninstalling
