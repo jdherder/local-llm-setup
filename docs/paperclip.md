@@ -355,5 +355,6 @@ Small local models often do the work but skip this step. Options:
 | Connection refused / `Cannot connect to API` | Wrong base URL, Ollama not running, or firewall (remote setup). Test with `curl <baseURL>/models` |
 | `opencode run` sits at `> build · model` forever | It's silently retrying a failed connection. Re-run with `--print-logs` to see the error |
 | Agent loops / forgets instructions | Context too small. Raise Ollama's context length |
+| Pi hello probe: *Connection error* | Can't reach Ollama. Check `curl http://192.168.4.24:11434/api/tags` from the same machine (PC asleep? Ollama quit? network exposure off?). On **macOS**, also check System Settings → Privacy & Security → **Local Network** for the app that started Paperclip (Terminal, iTerm, VS Code…). Without it, LAN connections from that app fail |
 | Very slow | Model or context spilled to CPU. Check `ollama ps` |
 | Tool calls fail / garbage output | Model weak at tool use. Try a different model |
