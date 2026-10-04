@@ -28,6 +28,9 @@ Newest entries at the top. Record what was run, what happened, and anything surp
 - `pi` "command not found in PATH" again after restarting iTerm. Likely cause: with **fnm**,
   `which pi` points into a temporary per-shell folder (`fnm_multishells/<random>`), so the earlier
   symlink broke when the shell closed. Fix: symlink from fnm's stable `aliases/default/bin`.
+  Real cause on top of that: I'd switched to **Node 26** for Paperclip, but Pi was installed
+  globally under **Node 22**, and global npm packages are per Node version. Fix: `fnm default 26`,
+  reinstall Pi under Node 26, then symlink from `aliases/default/bin`.
 - The Pi setup screen's "API key provider: OpenRouter" field is harmless for Pi. It only names
   the env var for an optional key and isn't enforced.
 

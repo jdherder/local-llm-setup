@@ -359,6 +359,11 @@ sudo ln -sf "$(which node)" /usr/local/bin/node   # pi is a Node script; make su
 (Alternatively, create the agent via the API with `"command": "<output of which pi>"` in
 `adapterConfig`.)
 
+**Switched Node versions?** Global npm packages are installed *per Node version*. If you
+installed Pi under one version (e.g. Node 22) and then switched to another to run Paperclip
+(it needs 24.11+), `pi` doesn't exist for the new version. Reinstall it while the new version
+is active: `npm install -g @earendil-works/pi-coding-agent`.
+
 **fnm users (macOS):** `which pi` returns a *temporary* per-terminal path
 (`~/Library/Caches/fnm_multishells/<random>/bin/pi`) that disappears when the terminal closes,
 so a symlink to it breaks after restarting the terminal. Link to fnm's stable `default` alias
@@ -366,6 +371,7 @@ instead:
 
 ```bash
 FNM_DEFAULT="$HOME/Library/Application Support/fnm/aliases/default/bin"
+fnm default 26                                     # make the version Paperclip uses the default
 ls "$FNM_DEFAULT/pi" "$FNM_DEFAULT/node"          # both should exist
 sudo mkdir -p /usr/local/bin
 sudo ln -sf "$FNM_DEFAULT/pi"   /usr/local/bin/pi
