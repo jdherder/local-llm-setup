@@ -33,6 +33,8 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   reinstall Pi under Node 26, then symlink from `aliases/default/bin`.
 - Switched to **`brew install pi-coding-agent`** instead (it's in homebrew/core). Brew's `pi`
   lives in `/opt/homebrew/bin` with its own Node, so fnm version switches don't affect it.
+- Paperclip has no Homebrew formula. Its own `paperclipai install` gives a permanent
+  `paperclipai` command; run it with Homebrew's Node so it's independent of fnm.
 - The Pi setup screen's "API key provider: OpenRouter" field is harmless for Pi. It only names
   the env var for an optional key and isn't enforced.
 

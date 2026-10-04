@@ -47,6 +47,29 @@ This sets things up and starts the web UI at <http://localhost:3100>. Later, sta
 npx paperclipai run
 ```
 
+### Installing Paperclip permanently (instead of `npx` every time)
+
+There's **no Homebrew formula** for Paperclip. The closest equivalent is Paperclip's own managed
+install, which puts a `paperclipai` command in `~/.local/bin` and pins it to the Node that ran
+the install. On macOS, pairing it with Homebrew's Node keeps it independent of fnm/nvm:
+
+```bash
+brew install node
+/opt/homebrew/bin/node --version                     # must be 24.11 or newer
+PATH="/opt/homebrew/bin:$PATH" npx paperclipai@latest install --yes
+```
+
+Then open a new terminal and use:
+
+```bash
+cd ~ && paperclipai run
+paperclipai update            # instead of @latest; backs up the database first
+```
+
+Known issue ([paperclipai/paperclip#14553](https://github.com/paperclipai/paperclip/issues/14553)):
+the command is pinned to the exact Homebrew Node version, so after `brew upgrade node` it breaks.
+Re-pin by re-running the install line above.
+
 ### Always start Paperclip from the same folder
 
 Paperclip picks its config (and so its database) by looking for a `.paperclip/config.json` in
