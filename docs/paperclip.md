@@ -311,7 +311,19 @@ to start or errors on auth, use Option A.
 has **no AI-connection mapping**, so the new-agent screen doesn't force OpenRouter on it the
 way it does for OpenCode. You should be able to create Pi agents in the UI normally.
 
-Install it on the machine running Paperclip (this is the package Paperclip itself installs):
+Install it on the machine running Paperclip.
+
+**macOS: use Homebrew (recommended).** It installs `pi` with its own Node, independent of
+whichever Node version fnm/nvm has active, so switching Node versions can't break it:
+
+```bash
+brew install pi-coding-agent
+which pi        # /opt/homebrew/bin/pi on Apple Silicon
+pi --version
+```
+
+**Otherwise, use npm** (this is the package Paperclip itself installs). Note that it's tied to the
+Node version that's active when you install it:
 
 ```bash
 npm install -g @earendil-works/pi-coding-agent

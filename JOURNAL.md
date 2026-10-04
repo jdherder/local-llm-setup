@@ -31,6 +31,8 @@ Newest entries at the top. Record what was run, what happened, and anything surp
   Real cause on top of that: I'd switched to **Node 26** for Paperclip, but Pi was installed
   globally under **Node 22**, and global npm packages are per Node version. Fix: `fnm default 26`,
   reinstall Pi under Node 26, then symlink from `aliases/default/bin`.
+- Switched to **`brew install pi-coding-agent`** instead (it's in homebrew/core). Brew's `pi`
+  lives in `/opt/homebrew/bin` with its own Node, so fnm version switches don't affect it.
 - The Pi setup screen's "API key provider: OpenRouter" field is harmless for Pi. It only names
   the env var for an optional key and isn't enforced.
 
